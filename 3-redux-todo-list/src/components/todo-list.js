@@ -1,39 +1,17 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 
 
-const initState = {
-    display : "all",  // 显示状态（all, uncompleted, completed）
-    todos: [
-        {
-            id: parseInt(1),
-            isComplete: false,
-            title: "学习redux"
-        },
-        {
-            id: parseInt(2),
-            isComplete: true,
-            title: "学习react"
-        },
-        {
-            id: parseInt(3),
-            isComplete: false,
-            title: "学习antd"
-        },
-
-    ]
-
-}
 
 class TodoList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = initState
+    constructor() {
+        super();
     }
 
 
     filterDisplay() {
-        return this.state.todos.filter(item => {
-            switch (this.state.display) {
+        return this.props.todos.filter(item => {
+            switch (this.props.display) {
                 case "completed":
                     return item.isComplete;
                 case "uncompleted":
@@ -76,4 +54,8 @@ class TodoList extends Component {
     }
 }
 
-export default TodoList;
+const mapStateToProps = (state ) => {
+    return state
+}
+
+export default connect(mapStateToProps)(TodoList);
