@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 import actions from "../store/actions"
 
 class TodoHeader extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     getUnfinishedCount = () => {

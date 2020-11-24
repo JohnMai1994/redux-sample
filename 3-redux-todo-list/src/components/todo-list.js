@@ -1,22 +1,30 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-
-
+import actions from "../store/actions";
+import {ALL, COMPLETED, UNCOMPLETED} from "../store/actions/action-type/action-type";
 
 class TodoList extends Component {
     constructor() {
         super();
     }
 
+    todoChange = (event) => {
+        this.props.toggleComplete(event.target.value)
+    }
+
+    delClick = (event) => {
+        console.log(event)
+        this.props.delTodo(event.target.dataset.id)
+    }
 
     filterDisplay() {
         return this.props.todos.filter(item => {
             switch (this.props.display) {
-                case "completed":
+                case COMPLETED:
                     return item.isComplete;
-                case "uncompleted":
+                case UNCOMPLETED:
                     return !item.isComplete;
-                case "all":
+                case ALL:
                 default:
                     return true
             }
@@ -28,11 +36,11 @@ class TodoList extends Component {
         return this.filterDisplay().map((todo, index) => {
             return (
                 <li key={index}>
-                    <input type="checkbox" value={todo.id} checked={todo.isComplete} />
+                    <input type="checkbox" value={todo.id} checked={todo.isComplete} onChange={this.todoChange}/>
                     {
                         todo.isComplete ? <del>{todo.title}</del> : <span>{todo.title}</span>
                     }
-                    <button type="button" data-id={todo.id}>删除</button>
+                    <button type="button" data-id={todo.id} onClick={this.delClick}>删除</button>
                 </li>
 
             )
@@ -54,8 +62,8 @@ class TodoList extends Component {
     }
 }
 
-const mapStateToProps = (state ) => {
+const mapStateToProps = (state) => {
     return state
 }
 
-export default connect(mapStateToProps)(TodoList);
+export default connect(mapStateToProps, actions)(TodoList);

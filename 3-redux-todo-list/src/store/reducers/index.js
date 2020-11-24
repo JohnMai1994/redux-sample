@@ -3,7 +3,7 @@ import {ADD_TODO, CHANGE_DISPLAY, DEL_TODO, TOGGLE_COMPLETE, ALL, COMPLETED, UNC
 
 // 定义默认状态
 const initState = {
-    display : "uncompleted",  // 显示状态（all, uncompleted, completed）
+    display : "all",  // 显示状态（all, uncompleted, completed）
     todos: [
         {
             id: parseInt(1),
@@ -51,6 +51,18 @@ export const reducer = (state = initState, action) => {
                 })
             }
             break;
+        case DEL_TODO:
+            newState = {
+                todos: state.todos.filter(todo => todo.id != action.data)
+            }
+            break
+        case CHANGE_DISPLAY:
+            newState = {
+                display: action.data,
+                todos: [...state.todos]
+            }
+            console.log("newstate", newState)
+            break
 
         default:
             newState = state;
