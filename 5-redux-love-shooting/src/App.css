@@ -1,0 +1,15 @@
+.app {
+    position: relative;
+}
+
+.boy {
+    position: absolute;
+    top: 30px;
+    left: 0;
+}
+
+.girl {
+    position: absolute;
+    top: 50px;
+    left: 400px;
+}
