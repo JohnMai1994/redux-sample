@@ -38,7 +38,7 @@ class TodoHeader extends Component {
                     <select name="todo-priority" id="todo-priority" ref={(input) => this.todoPriority = input}>
                         <option value="HIGH">High</option>
                         <option value="MID">Mid</option>
-                        <option value="Low">Low</option>
+                        <option value="LOW">Low</option>
                     </select>
 
                     <button type="button" onClick={this.addTodoClick}> 添加</button>

@@ -1,4 +1,4 @@
-import {ADD_TODO, CHANGE_DISPLAY, TOGGLE_COMPLETE, DEL_TODO} from "./action-type/action-type";
+import {ADD_TODO, CHANGE_DISPLAY, TOGGLE_COMPLETE, DEL_TODO, CHANGE_PRIORITY} from "./action-type/action-type";
 
 
 const actions = {
@@ -24,13 +24,19 @@ const actions = {
         }
 
     },
-    // 改变显示状态 data: {display: xxx, priority: xxx}
+    // 改变显示状态 data: ALL, UNCOMPLETED, COMPLETED
     changeDisplay: function (data) {
         return {
             type: CHANGE_DISPLAY,
             data
         }
-
+    },
+    //
+    changePriority: function (data) {
+        return {
+            type: CHANGE_PRIORITY,
+            data
+        }
     }
 
 }

@@ -6,6 +6,7 @@ export const TOGGLE_COMPLETE = 'TOGGLE_COMPLETE'
 export const DEL_TODO = "DEL_TODO"
 // 更改显示待办项的状态
 export const CHANGE_DISPLAY = 'CHANGE_DISPLAY'
+export const CHANGE_PRIORITY = 'CHANGE_PRIORITY'
 
 /***显示状态的三个状态****/
 export const  ALL = "ALL";

@@ -8,7 +8,7 @@ import {
     ALL,
     HIGHT,
     LOW,
-    MID
+    MID, CHANGE_PRIORITY
 } from "../actions/action-type/action-type";
 import {act} from "@testing-library/react";
 
@@ -37,6 +37,49 @@ const initialState = {
             priority: MID,
             date: "2020-11-24"
         },
+        {
+            id: parseInt(Math.random() * 10000),
+            isComplete: false,
+            title: "学习abc",
+            priority: MID,
+            date: "2020-11-24"
+        },
+        {
+            id: parseInt(Math.random() * 10000),
+            isComplete: false,
+            title: "学习abc",
+            priority: MID,
+            date: "2020-11-24"
+        },
+        {
+            id: parseInt(Math.random() * 10000),
+            isComplete: false,
+            title: "学习abc",
+            priority: MID,
+            date: "2020-11-24"
+        },
+        {
+            id: parseInt(Math.random() * 10000),
+            isComplete: false,
+            title: "学习abc",
+            priority: MID,
+            date: "2020-11-24"
+        },
+        {
+            id: parseInt(Math.random() * 10000),
+            isComplete: false,
+            title: "学习abc",
+            priority: MID,
+            date: "2020-11-24"
+        },
+        {
+            id: parseInt(Math.random() * 10000),
+            isComplete: false,
+            title: "学习abc",
+            priority: MID,
+            date: "2020-11-24"
+        },
+
 
     ]
 
@@ -48,6 +91,8 @@ export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TODO:
             newState = {
+                display: state.display,
+                priority: state.priority,
                 todos: [
                     ...state.todos,
                     action.data
@@ -56,6 +101,8 @@ export const reducer = (state = initialState, action) => {
             break
         case TOGGLE_COMPLETE:
             newState = {
+                display: state.display,
+                priority: state.priority,
                 todos: state.todos.map((item) => {
                     if (item.id == action.data) {
                         console.log(item.id)
@@ -67,18 +114,31 @@ export const reducer = (state = initialState, action) => {
             break
         case DEL_TODO:
             newState = {
+                display: state.display,
+                priority: state.priority,
                 todos: state.todos.filter((item) => {
                     return item.id != action.data
                 })
             }
             break;
         case CHANGE_DISPLAY:
+
+
+
             newState = {
-                display: action.data.display,
-                priority: action.data.priority,
+                display: action.data,
+                priority: action.data == ALL ? ALL: state.priority,
                 todos: [...state.todos]
             }
             break
+        case CHANGE_PRIORITY:
+            newState = {
+                display: state.display,
+                priority: action.data,
+                todos: [...state.todos]
+            }
+            break
+
         default:
             newState = state
     }
