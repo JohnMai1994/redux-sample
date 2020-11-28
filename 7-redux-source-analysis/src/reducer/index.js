@@ -1,6 +1,6 @@
 
 // 2. 初始化state的值，
-const initialState = {value: "开始默认值"}
+const initialState = {value: "开始默认值2"}
 
 // 3. 编写reducer，
 //      state: 最开始是无值的，
@@ -19,6 +19,13 @@ const rootReducer = (state = initialState, action) => {
 
 }
 
+const secondReducer = (state, action) => {
+
+    return state
+
+}
+
 module.exports = {
-    rootReducer
+    rootReducer,
+    secondReducer
 }

@@ -23,6 +23,7 @@ class Home extends Component {
             // 7. 需要更改渲染的内容，一定需要使用setState
             this.setState({})
         })
+
     }
 
     render() {

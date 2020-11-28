@@ -5,6 +5,10 @@ import isPlainObject from './utils/isPlainObject'
 
 // 先看这里， 就是我们调用的createStore function了
 
+// 简单说一下参数：
+//      reducer: 就是我们用来改变store的唯一方法，里面根据传进去的action.type来返回不同的newState
+//      preloadedState: 就是初始化状态，initialState
+//      enhancer: 就是中间件，熟记洋葱模型！
 export default function createStore(reducer, preloadedState, enhancer) {
     // 如果 preloadedState和enhancer都为function，不支持，throw new Error
     // 我们都知道[initState]为object， [enhancer]为function
@@ -25,7 +29,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
         preloadedState = undefined // preloadedState赋值undeifined
     }
 
-    // debugger
+    // debugger !!!important, 这里是处理中间件middleware的重要方法
     // 如果参数enhancer存在
     if (typeof enhancer !== 'undefined') {
         // 如果enhancer存在，那他必须是个function, 否则throw Error哈
@@ -51,12 +55,14 @@ export default function createStore(reducer, preloadedState, enhancer) {
         throw new Error('Expected the reducer to be a function.')
     }
 
-    // 简单过一下定义的变量
+    /*****************************这是一个分割线*********************************/
+    // 简单过一下定义的变量 -> 后面的都会使用这里的定义变量
     let currentReducer = reducer  // 临时reducer
     let currentState = preloadedState // 临时init state
     let currentListeners = []  // 看名字，是个数组，起名Listeners，想到了什么？ 我想到的是监听队列和观察者模式
     let nextListeners = currentListeners // 浅拷贝下这个队列
     let isDispatching = false // 我们很容易先假设isDispatching标志是否正在执行dispatch
+
 
     // 先看下各个函数的名字， 打眼一看getState，dispatch，subscribe都是比较熟悉的api
     // subscribe，observable再加上定义的数组，应该肯定是监听队列和观察者模式
@@ -87,7 +93,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
         return currentState
     }
 
-    // store.subscribe方法设置监听函数，一旦触发disp atch，就自动执行这个函数
+    // store.subscribe方法设置监听函数，一旦触发dispatch，就自动执行这个函数
     // listener是一个callback function
     function subscribe(listener) {
         // 类型判断
@@ -109,6 +115,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
         let isSubscribed = true
         // ensureCanMutateNextListeners干啥的,点击去看一下
         ensureCanMutateNextListeners()
+        // 订阅subscribe的时候，传进来的listener方法
         // push一个function，明显的观察者模式，添加一个订阅函数
         nextListeners.push(listener)
         // 返回取消的function（unsubscribe）
@@ -177,9 +184,10 @@ export default function createStore(reducer, preloadedState, enhancer) {
         // 所有的的监听函数赋值给 listeners
         const listeners = (currentListeners = nextListeners)
         for (let i = 0; i < listeners.length; i++) {
-            const listener = listeners[i]
+            // 这里的listener就是你监听subscribe的时候传进去的方法
+            const listener = listeners[i]  // listener -> 是一个function
             // 执行每一个监听函数
-            listener()
+            listener()                     // 执行listener这个方法
         }
         // 返回传入的action
         return action
