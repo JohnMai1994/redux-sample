@@ -1,10 +1,10 @@
 import {CHANGE_STATUS} from "../action/action-type/action-type";
 
-const initialState = {
-    isSend: false
-}
+// const initialState = {
+//     isSend: false
+// }
 
-export const reducer = (state = initialState, action) => {
+export const reducer = (state , action) => {
 
     let newState;
     switch (action.type) {

@@ -19,6 +19,8 @@ class TodoHeader extends Component {
             title: this.todoTitle.value,
             isComplete: false
         })
+
+        
     }
 
     render() {
